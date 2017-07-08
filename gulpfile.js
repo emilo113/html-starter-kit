@@ -52,10 +52,14 @@ gulp.task('browserSync', function() {
 gulp.task('sass', function() {
    return gulp.src(paths.sassIn)
        .pipe(sass())
+       .on('error', function(error) {
+           console.log(error.toString());
+           this.emit('end');
+       })
        .pipe(gulp.dest(paths.sassOut))
        .pipe(browserSync.reload({
            stream: true
-       }));
+       }))
 });
 
 gulp.task('useref', function() {
